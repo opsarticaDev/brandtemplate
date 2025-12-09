@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brand Development Intake Questionnaire</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Source+Sans+3:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+        :root { --charcoal: #2d2d2d; --gray: #666666; --light-gray: #f7f7f7; --medium-gray: #e0e0e0; --accent: #4a7c59; --accent-light: #e8f0ea; --white: #ffffff; --required: #c76b8a; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Source Sans 3', sans-serif; font-weight: 400; background: var(--light-gray); color: var(--charcoal); line-height: 1.6; font-size: 15px; }
+        .container { max-width: 900px; margin: 0 auto; padding: 2rem; }
+        .header { text-align: center; padding: 3rem 2rem; background: var(--white); margin-bottom: 2rem; border-bottom: 3px solid var(--accent); }
+        .header h1 { font-family: 'Playfair Display', serif; font-size: 2.2rem; font-weight: 500; color: var(--charcoal); margin-bottom: 0.5rem; }
+        .header .subtitle { font-size: 1rem; color: var(--gray); margin-bottom: 1.5rem; }
+        .header .instructions { font-size: 0.9rem; color: var(--gray); max-width: 600px; margin: 0 auto; line-height: 1.7; }
+        .header .required-note { display: inline-block; margin-top: 1rem; font-size: 0.85rem; color: var(--required); }
+        .project-info { background: var(--white); padding: 2rem; margin-bottom: 2rem; display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+        .project-info .field { display: flex; flex-direction: column; }
+        .project-info label { font-size: 0.85rem; font-weight: 500; color: var(--charcoal); margin-bottom: 0.3rem; }
+        .project-info input { padding: 0.6rem; border: 1px solid var(--medium-gray); font-family: inherit; font-size: 0.95rem; }
+        .section { background: var(--white); margin-bottom: 1.5rem; overflow: hidden; }
+        .section-header { background: var(--light-gray); padding: 1rem 1.5rem; border-left: 4px solid var(--accent); }
+        .section-header h2 { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 500; color: var(--charcoal); }
+        .section-content { padding: 1.5rem; }
+        .field-group { margin-bottom: 1.5rem; }
+        .field-group:last-child { margin-bottom: 0; }
+        .field-label { font-weight: 600; font-size: 0.95rem; color: var(--charcoal); margin-bottom: 0.3rem; display: flex; align-items: center; gap: 0.4rem; }
+        .field-label .required { color: var(--required); font-size: 1.1rem; }
+        .field-hint { font-size: 0.85rem; color: var(--gray); margin-bottom: 0.6rem; font-style: italic; }
+        input[type="text"], textarea { width: 100%; padding: 0.7rem; border: 1px solid var(--medium-gray); font-family: inherit; font-size: 0.95rem; transition: border-color 0.2s; }
+        input[type="text"]:focus, textarea:focus { outline: none; border-color: var(--accent); }
+        textarea { min-height: 80px; resize: vertical; }
+        .checkbox-group { display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; }
+        .checkbox-item { display: flex; align-items: center; gap: 0.4rem; font-size: 0.9rem; }
+        .checkbox-item input[type="checkbox"], .checkbox-item input[type="radio"] { width: 16px; height: 16px; accent-color: var(--accent); }
+        .example-box { background: var(--accent-light); border: 1px solid #c8d9cc; border-radius: 6px; padding: 1.25rem; margin: 1rem 0; }
+        .example-box-header { font-size: 0.8rem; font-weight: 600; color: var(--accent); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.4rem; }
+        .example-box-header::before { content: '💡'; font-size: 0.9rem; }
+        .example-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+        .example-card { background: var(--white); padding: 1rem; border-radius: 4px; text-align: center; }
+        .example-card .brand-name { font-weight: 600; font-size: 0.9rem; color: var(--charcoal); margin-bottom: 0.3rem; }
+        .example-card .brand-desc { font-size: 0.8rem; color: var(--gray); line-height: 1.4; }
+        .palette-examples { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 1rem 0; }
+        .palette-card { background: var(--white); border-radius: 6px; overflow: hidden; border: 1px solid var(--medium-gray); }
+        .palette-swatches { display: flex; height: 50px; }
+        .palette-swatches span { flex: 1; }
+        .palette-info { padding: 0.75rem; text-align: center; }
+        .palette-name { font-weight: 600; font-size: 0.85rem; color: var(--charcoal); margin-bottom: 0.2rem; }
+        .palette-mood { font-size: 0.75rem; color: var(--gray); }
+        .typography-examples { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1rem 0; }
+        .type-card { background: var(--white); border: 1px solid var(--medium-gray); border-radius: 6px; padding: 1.25rem; text-align: center; }
+        .type-sample { font-size: 1.4rem; margin-bottom: 0.5rem; color: var(--charcoal); }
+        .type-sample.serif { font-family: 'Playfair Display', serif; }
+        .type-sample.sans-serif { font-family: 'Source Sans 3', sans-serif; }
+        .type-sample.script { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.6rem; }
+        .type-sample.mixed-headline { font-family: 'Libre Baskerville', serif; }
+        .type-sample.mixed-body { font-family: 'Raleway', sans-serif; font-size: 1rem; margin-top: 0.3rem; }
+        .type-name { font-weight: 600; font-size: 0.85rem; color: var(--charcoal); margin-bottom: 0.2rem; }
+        .type-desc { font-size: 0.8rem; color: var(--gray); line-height: 1.4; }
+        .aesthetic-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 1rem 0; }
+        .aesthetic-card { background: var(--white); border: 1px solid var(--medium-gray); border-radius: 6px; padding: 1rem; text-align: center; cursor: pointer; transition: all 0.2s; }
+        .aesthetic-card:hover:not(.disabled) { border-color: var(--accent); box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+        .aesthetic-card.disabled { opacity: 0.4; cursor: not-allowed; pointer-events: none; }
+        .aesthetic-card.selected { border-color: var(--accent); background: var(--accent-light); }
+        .aesthetic-card input[type="checkbox"] { display: none; }
+        .aesthetic-icon { font-size: 1.5rem; margin-bottom: 0.4rem; }
+        .aesthetic-name { font-weight: 600; font-size: 0.85rem; color: var(--charcoal); margin-bottom: 0.2rem; }
+        .aesthetic-desc { font-size: 0.75rem; color: var(--gray); line-height: 1.4; }
+        .trait-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem; margin: 0.75rem 0; }
+        .trait-item { display: flex; align-items: center; gap: 0.4rem; font-size: 0.9rem; padding: 0.4rem 0.6rem; background: var(--light-gray); border-radius: 4px; cursor: pointer; transition: all 0.2s; }
+        .trait-item:hover:not(.disabled) { background: var(--accent-light); }
+        .trait-item.selected { background: var(--accent-light); border: 1px solid var(--accent); }
+        .trait-item.disabled { opacity: 0.35; cursor: not-allowed; text-decoration: line-through; }
+        .trait-item input[type="checkbox"] { accent-color: var(--accent); }
+        .budget-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; margin: 0.75rem 0; }
+        .budget-option { display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem; background: var(--light-gray); border-radius: 4px; font-size: 0.9rem; }
+        .budget-option input[type="radio"] { accent-color: var(--accent); }
+        .deliverable-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.5rem 1.5rem; }
+        .demo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+        .demo-field label { display: block; font-size: 0.85rem; font-weight: 500; margin-bottom: 0.3rem; }
+        .demo-field input { width: 100%; }
+        .competitor-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 0.75rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--light-gray); }
+        .competitor-row:last-child { border-bottom: none; margin-bottom: 0; }
+        .competitor-row label { font-size: 0.85rem; font-weight: 500; display: block; margin-bottom: 0.3rem; }
+        .tone-table { width: 100%; margin: 0.75rem 0; }
+        .tone-table td { padding: 0.5rem; vertical-align: top; }
+        .tone-table td:first-child { width: 100px; font-weight: 600; font-size: 0.9rem; }
+        .tone-table input { width: 100%; }
+        .pdf-button-container { text-align: center; padding: 2rem; background: var(--white); margin-bottom: 1.5rem; border: 2px dashed var(--medium-gray); border-radius: 8px; }
+        .pdf-button { display: inline-flex; align-items: center; gap: 0.5rem; padding: 1rem 2rem; background: var(--accent); color: var(--white); border: none; border-radius: 6px; font-family: inherit; font-size: 1rem; font-weight: 500; cursor: pointer; transition: background 0.2s; }
+        .pdf-button:hover { background: #3d6a4a; }
+        .pdf-button svg { width: 20px; height: 20px; }
+        .pdf-note { margin-top: 0.75rem; font-size: 0.85rem; color: var(--gray); }
+        .footer { text-align: center; padding: 2rem; color: var(--gray); font-size: 0.85rem; }
+        .footer hr { border: none; border-top: 1px solid var(--medium-gray); margin-bottom: 1.5rem; max-width: 200px; margin-left: auto; margin-right: auto; }
+        @media print { body { background: white; } .pdf-button-container { display: none; } }
+        @media (max-width: 768px) { .container { padding: 1rem; } .project-info, .example-grid, .palette-examples, .aesthetic-grid, .budget-grid, .typography-examples, .demo-grid, .competitor-row, .deliverable-grid { grid-template-columns: 1fr; } .trait-grid { grid-template-columns: repeat(2, 1fr); } }
+    </style>
+</head>
+<body>
+<div class="container" id="intake-form">
+<header class="header">
+    <h1>Brand Development</h1>
+    <p class="subtitle">Intake Questionnaire</p>
+    <p class="instructions">This questionnaire captures the essential information to develop a comprehensive brand identity. Complete all sections as thoroughly as possible. The more detail you provide, the better we can bring your vision to life.</p>
+    <p class="required-note">◆ Helpful to have</p>
+</header>
+
+<div class="project-info">
+    <div class="field"><label>Client / Business Name</label><input type="text" name="client_name"></div>
+    <div class="field"><label>Contact Name</label><input type="text" name="contact_name"></div>
+    <div class="field"><label>Email</label><input type="text" name="email"></div>
+    <div class="field"><label>Phone</label><input type="text" name="phone"></div>
+    <div class="field"><label>Date</label><input type="text" name="date"></div>
+</div>
+
+<section class="section">
+    <div class="section-header"><h2>1. Business Foundation</h2></div>
+    <div class="section-content">
+        <div class="field-group">
+            <label class="field-label"><span class="required">◆</span> Business Name</label>
+            <p class="field-hint">As it should appear on all branding materials</p>
+            <input type="text" name="business_name">
+        </div>
+        <div class="field-group">
+            <label class="field-label">Tagline / Slogan</label>
+            <p class="field-hint">If you have an established tagline, or ideas you are considering</p>
+            <input type="text" name="tagline">
+            <div class="example-box">
+                <div class="example-box-header">Industry Examples</div>
+                <div class="example-grid">
+                    <div class="example-card"><div class="brand-name">ThredUp</div><div class="brand-desc">"Secondhand clothes. Firsthand fun."</div></div>
+                    <div class="example-card"><div class="brand-name">The RealReal</div><div class="brand-desc">"Extend the life of luxury."</div></div>
+                    <div class="example-card"><div class="brand-name">Plato's Closet</div><div class="brand-desc">"Buy. Sell. Trade."</div></div>
+                </div>
+            </div>
+        </div>
+        <div class="field-group">
+            <label class="field-label"><span class="required">◆</span> Industry / Business Category</label>
+            <input type="text" name="industry" placeholder="e.g., Consignment Retail, Fashion Resale, Boutique">
+        </div>
+        <div class="field-group">
+            <label class="field-label"><span class="required">◆</span> Business Description</label>
+            <p class="field-hint">Describe your business in 2-3 sentences. What do you do? What do you sell or offer?</p>
+            <textarea name="business_description"></textarea>
+            <div class="example-box">
+                <div class="example-box-header">Example Descriptions</div>
+                <div class="example-grid">
+                    <div class="example-card"><div class="brand-name">Buffalo Exchange</div><div class="brand-desc">A buy-sell-trade fashion retailer offering curated secondhand clothing with an emphasis on current trends and vintage finds.</div></div>
+                    <div class="example-card"><div class="brand-name">Crossroads Trading</div><div class="brand-desc">A sustainable fashion destination where customers can refresh their wardrobe by buying and selling quality, on-trend clothing.</div></div>
+                    <div class="example-card"><div class="brand-name">Upscale Resale</div><div class="brand-desc">A boutique consignment experience specializing in contemporary designer fashion at accessible price points.</div></div>
+                </div>
+            </div>
+        </div>
+        <div class="field-group">
+            <label class="field-label"><span class="required">◆</span> Mission Statement</label>
+            <p class="field-hint">Why does your business exist? What purpose do you serve beyond making money?</p>
+            <textarea name="mission"></textarea>
+            <div class="example-box">
+                <div class="example-box-header">Example Mission Statements</div>
+                <div class="example-grid">
+                    <div class="example-card"><div class="brand-name">ThredUp</div><div class="brand-desc">"To inspire a new generation of consumers to think secondhand first."</div></div>
+                    <div class="example-card"><div class="brand-name">Patagonia</div><div class="brand-desc">"We're in business to save our home planet."</div></div>
+                    <div class="example-card"><div class="brand-name">Warby Parker</div><div class="brand-desc">"To offer designer eyewear at a revolutionary price while leading the way for socially conscious businesses."</div></div>
+                </div>
+            </div>
+        </div>
+        <div class="field-group">
+            <label class="field-label">Vision Statement</label>
+            <p class="field-hint">Where do you see your business in 5-10 years?</p>
+            <textarea name="vision"></textarea>
+            <div class="example-box">
+                <div class="example-box-header">Example Vision Statements</div>
+                <div class="example-grid">
+                    <div class="example-card"><div class="brand-name">Sustainable Style</div><div class="brand-desc">"To become the go-to destination for fashion-forward shoppers who want quality without compromise."</div></div>
+                    <div class="example-card"><div class="brand-name">Community Focus</div><div class="brand-desc">"To build a community of conscious consumers who see secondhand as their first choice."</div></div>
+                    <div class="example-card"><div class="brand-name">Growth Oriented</div><div class="brand-desc">"To expand to five locations while maintaining our boutique feel and personalized service."</div></div>
+                </div>
+            </div>
+        </div>
+        <div class="field-group">
+            <label class="field-label"><span class="required">◆</span> Core Values</label>
+            <p class="field-hint">List 3-5 values that guide your business decisions and culture</p>
+            <textarea name="values" placeholder="e.g., Sustainability, Quality, Community, Authenticity, Accessibility"></textarea>
+        </div>
+        <div class="field-group">
+            <label class="field-label">Unique Value Proposition</label>
+            <p class="field-hint">What makes you different from competitors? Why should customers choose you?</p>
+            <textarea name="uvp"></textarea>
+            <div class="example-box">
+                <div class="example-box-header">Example Value Propositions</div>
+                <div class="example-grid">
+                    <div class="example-card"><div class="brand-name">Curation Focus</div><div class="brand-desc">"Unlike cluttered thrift stores, every piece in our boutique is hand-selected for quality, style, and timelessness."</div></div>
+                    <div class="example-card"><div class="brand-name">Experience Focus</div><div class="brand-desc">"We offer the high-end shopping experience of a designer boutique with the thrill and value of secondhand."</div></div>
+                    <div class="example-card"><div class="brand-name">Service Focus</div><div class="brand-desc">"Personal styling consultations and authentication expertise you won't find at traditional consignment shops."</div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="section-header"><h2>2. Target Audience</h2></div>
+    <div class="section-content">
+        <div class="field-group">
+            <label class="field-label"><span class="required">◆</span> Primary Customer Demographics</label>
+            <p class="field-hint">Who is your ideal customer?</p>
+            <div class="demo-grid">
+                <div class="demo-field"><label>Age Range</label><input type="text" name="demo_age" placeholder="e.g., 25-45"></div>
+                <div class="demo-field"><label>Gender</label><input type="text" name="demo_gender" placeholder="e.g., Primarily women, All genders"></div>
+                <div class="demo-field"><label>Income Level</label><input type="text" name="demo_income" placeholder="e.g., Middle to upper-middle"></div>
+                <div class="demo-field"><label>Location</label><input type="text" name="demo_location" placeholder="e.g., Urban/suburban, specific region"></div>
+            </div>
+        </div>
+        <div class="field-group">
+            <label class="field-label"><span class="required">◆</span> Customer Psychographics</label>
+            <p class="field-hint">Describe your ideal customer's lifestyle, interests, values, and behaviors</p>
+            <textarea name="psychographics"></textarea>
+            <div class="example-box">
+                <div class="example-box-header">Example Customer Profiles</div>
+                <div class="example-grid">
+                    <div class="example-card"><div class="brand-name">The Conscious Shopper</div><div class="brand-desc">Values sustainability, researches purchases, willing to pay more for quality and ethics. Active on Instagram, follows lifestyle influencers.</div></div>
+                    <div class="example-card"><div class="brand-name">The Savvy Stylist</div><div class="brand-desc">Fashion-forward but budget-conscious. Loves the thrill of finding designer pieces at a fraction of retail. Enjoys curating a unique wardrobe.</div></div>
+                    <div class="example-card"><div class="brand-name">The Practical Professional</div><div class="brand-desc">Busy career woman who wants quality workwear without full retail prices. Values convenience and a curated selection over endless browsing.</div></div>
+                </div>
+            </div>
+        </div>
+        <div class="field-group">
+            <label class="field-label">Customer Pain Points</label>
+            <p class="field-hint">What problems or frustrations does your customer have that you solve?</p>
+            <textarea name="pain_points" placeholder="e.g., Tired of fast fashion quality, can't afford full-price designer, overwhelmed by cluttered thrift stores"></textarea>
+        </div>
+        <div class="field-group">
+            <label class="field-label">How Customers Find You</label>
+            <p class="field-hint">Check all that apply</p>
+            <div class="checkbox-group">
+                <label class="checkbox-item"><input type="checkbox" name="acquisition[]" value="word_of_mouth"> Word of mouth</label>
+                <label class="checkbox-item"><input type="checkbox" name="acquisition[]" value="social_media"> Social media</label>
+                <label class="checkbox-item"><input type="checkbox" name="acquisition[]" value="search"> Search engines</label>
+                <label class="checkbox-item"><input type="checkbox" name="acquisition[]" value="advertising"> Advertising</label>
+                <label class="checkbox-item"><input type="checkbox" name="acquisition[]" value="walk_in"> Walk-in traffic</label>
+                <label class="checkbox-item"><input type="checkbox" name="acquisition[]" value="events"> Events</label>
+            </div>
+            <input type="text" name="acquisition_other" placeholder="Other..." style="margin-top: 0.5rem;">
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="section-header"><h2>3. Competitive Landscape</h2></div>
+    <div class="section-content">
+        <div class="field-group">
+            <label class="field-label">Top Competitors</label>
+            <p class="field-hint">List direct competitors and what they do well</p>
+            <div class="competitor-row">
+                <div><label>Competitor 1</label><input type="text" name="competitor_1"></div>
+                <div><label>Their Strengths</label><input type="text" name="competitor_1_strengths" placeholder="e.g., Great location, strong social media, loyal customers"></div>
+            </div>
+            <div class="competitor-row">
+                <div><label>Competitor 2</label><input type="text" name="competitor_2"></div>
+                <div><label>Their Strengths</label><input type="text" name="competitor_2_strengths" placeholder="e.g., Wide selection, competitive pricing, established brand"></div>
+            </div>
+        </div>
+        <div class="field-group">
+            <label class="field-label">Brands You Admire</label>
+            <p class="field-hint">What do you like about their branding? These can be outside your industry.</p>
+            <textarea name="admired_brands"></textarea>
+            <div class="example-box">
+                <div class="example-box-header">Upscale Brand Examples</div>
+                <p style="font-size: 0.85rem; color: #666; margin-bottom: 0.75rem;">These brands balance quality and accessibility. Premium positioning without being unattainable:</p>
+                <div class="example-grid">
+                    <div class="example-card"><div class="brand-name">Lululemon</div><div class="brand-desc">Premium athletic wear with strong community focus. Aspirational but achievable. Clean, confident branding.</div></div>
+                    <div class="example-card"><div class="brand-name">Anthropologie</div><div class="brand-desc">Curated, artistic retail experience. Eclectic yet cohesive. Appeals to creative, style-conscious women.</div></div>
+                    <div class="example-card"><div class="brand-name">Madewell</div><div class="brand-desc">Quality basics with personality. Approachable premium. Sustainability messaging woven throughout.</div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="section-header"><h2>4. Brand Personality</h2></div>
+    <div class="section-content">
+        <div class="field-group">
+            <label class="field-label"><span class="required">◆</span> Brand Personality Traits</label>
+            <p class="field-hint">Select 3-5 words that describe how your brand should feel. Conflicting traits will dim as you select.</p>
+            <div class="trait-grid" id="trait-grid">
+                <label class="trait-item" data-trait="professional" data-conflicts="casual,playful,quirky"><input type="checkbox" name="traits[]" value="professional"> Professional</label>
+                <label class="trait-item" data-trait="playful" data-conflicts="professional,sophisticated,refined,elegant"><input type="checkbox" name="traits[]" value="playful"> Playful</label>
+                <label class="trait-item" data-trait="luxurious" data-conflicts="casual,budget,accessible"><input type="checkbox" name="traits[]" value="luxurious"> Luxurious</label>
+                <label class="trait-item" data-trait="approachable" data-conflicts="exclusive,elite"><input type="checkbox" name="traits[]" value="approachable"> Approachable</label>
+                <label class="trait-item" data-trait="bold" data-conflicts="subtle,minimalist,understated"><input type="checkbox" name="traits[]" value="bold"> Bold</label>
+                <label class="trait-item" data-trait="minimalist" data-conflicts="bold,maximalist,ornate,quirky"><input type="checkbox" name="traits[]" value="minimalist"> Minimalist</label>
+                <label class="trait-item" data-trait="traditional" data-conflicts="edgy,innovative,modern"><input type="checkbox" name="traits[]" value="traditional"> Traditional</label>
+                <label class="trait-item" data-trait="innovative" data-conflicts="traditional,classic"><input type="checkbox" name="traits[]" value="innovative"> Innovative</label>
+                <label class="trait-item" data-trait="friendly" data-conflicts="exclusive,elite,aloof"><input type="checkbox" name="traits[]" value="friendly"> Friendly</label>
+                <label class="trait-item" data-trait="sophisticated" data-conflicts="playful,casual,quirky"><input type="checkbox" name="traits[]" value="sophisticated"> Sophisticated</label>
+                <label class="trait-item" data-trait="edgy" data-conflicts="traditional,classic,refined"><input type="checkbox" name="traits[]" value="edgy"> Edgy</label>
+                <label class="trait-item" data-trait="warm" data-conflicts="cold,clinical,aloof"><input type="checkbox" name="traits[]" value="warm"> Warm</label>
+                <label class="trait-item" data-trait="trustworthy" data-conflicts=""><input type="checkbox" name="traits[]" value="trustworthy"> Trustworthy</label>
+                <label class="trait-item" data-trait="energetic" data-conflicts="calm,serene,understated"><input type="checkbox" name="traits[]" value="energetic"> Energetic</label>
+                <label class="trait-item" data-trait="elegant" data-conflicts="casual,playful,edgy"><input type="checkbox" name="traits[]" value="elegant"> Elegant</label>
+                <label class="trait-item" data-trait="refined" data-conflicts="edgy,casual,playful"><input type="checkbox" name="traits[]" value="refined"> Refined</label>
+                <label class="trait-item" data-trait="modern" data-conflicts="traditional,vintage,classic"><input type="checkbox" name="traits[]" value="modern"> Modern</label>
+                <label class="trait-item" data-trait="quirky" data-conflicts="professional,sophisticated,refined,minimalist"><input type="checkbox" name="traits[]" value="quirky"> Quirky</label>
+                <label class="trait-item" data-trait="casual" data-conflicts="professional,luxurious,elegant,sophisticated,refined"><input type="checkbox" name="traits[]" value="casual"> Casual</label>
+                <label class="trait-item" data-trait="confident" data-conflicts=""><input type="checkbox" name="traits[]" value="confident"> Confident</label>
+            </div>
+            <input type="text" name="traits_other" placeholder="Other traits..." style="margin-top: 0.75rem;">
+        </div>
+        <div class="field-group">
+            <label class="field-label"><span class="required">◆</span> Brand Voice</label>
+            <p class="field-hint">If your brand were a person, how would they speak?</p>
+            <textarea name="brand_voice" placeholder="e.g., Warm and conversational, like a stylish friend giving advice. Knowledgeable but never condescending."></textarea>
+            <div class="example-box">
+                <div class="example-box-header">Voice Examples</div>
+                <div class="example-grid">
+                    <div class="example-card"><div class="brand-name">Warm & Knowledgeable</div><div class="brand-desc">"We've curated something special for you. Pieces that deserve a second chapter."</div></div>
+                    <div class="example-card"><div class="brand-name">Confident & Direct</div><div class="brand-desc">"Designer quality. Smart prices. No compromises."</div></div>
+                    <div class="example-card"><div class="brand-name">Playful & Inviting</div><div class="brand-desc">"Come treasure hunting! Your next favorite piece is waiting."</div></div>
+                </div>
+            </div>
+        </div>
+        <div class="field-group">
+            <label class="field-label"><span class="required">◆</span> Tone Guidelines</label>
+            <p class="field-hint">Define what your brand voice should and should not sound like</p>
+            <table class="tone-table">
+                <tr><td>We ARE:</td><td><input type="text" name="tone_are" placeholder="e.g., Elegant, approachable, confident, warm, knowledgeable"></td></tr>
+                <tr><td>We are NOT:</td><td><input type="text" name="tone_not" placeholder="e.g., Stuffy, pretentious, salesy, trendy, cold"></td></tr>
+            </table>
+        </div>
+        <div class="field-group">
+            <label class="field-label">Emotional Response</label>
+            <p class="field-hint">How should customers FEEL when they interact with your brand?</p>
+            <textarea name="emotional_response" placeholder="e.g., Like they've discovered a secret gem. Confident in their purchase. Part of a community that values quality and sustainability."></textarea>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="section-header"><h2>5. Visual Preferences</h2></div>
+    <div class="section-content">
+        <div class="field-group">
+            <label class="field-label"><span class="required">◆</span> Color Preferences</label>
+            <p class="field-hint" style="margin-top: 0.75rem;">Colors you are drawn to (list specific colors or general palettes)</p>
+            <input type="text" name="colors_like" placeholder="e.g., Soft pinks, gold accents, warm neutrals">
+            <p class="field-hint" style="margin-top: 0.75rem;">Colors to avoid</p>
+            <input type="text" name="colors_avoid" placeholder="e.g., Neon colors, orange, primary blue">
+            <p class="field-hint" style="margin-top: 0.75rem;">Any set colors (existing brand colors, industry standards)</p>
+            <input type="text" name="colors_required" placeholder="e.g., Must include blush pink #E8A4B8">
+            <div class="example-box">
+                <div class="example-box-header">Pink-Anchored Palette Ideas</div>
+                <p style="font-size: 0.85rem; color: #666; margin-bottom: 0.75rem;">Since you are drawn to pink, here are directions that work well for upscale boutiques:</p>
+                <div class="palette-examples">
+                    <div class="palette-card">
+                        <div class="palette-swatches"><span style="background: #fdf2f4;"></span><span style="background: #e8a4b8;"></span><span style="background: #c76b8a;"></span><span style="background: #c9a855;"></span><span style="background: #1a1a1a;"></span></div>
+                        <div class="palette-info"><div class="palette-name">Blush & Gold</div><div class="palette-mood">Romantic, luxurious, feminine. Soft pink foundation with gold accents and black grounding.</div></div>
+                    </div>
+                    <div class="palette-card">
+                        <div class="palette-swatches"><span style="background: #f8e8e8;"></span><span style="background: #d4a5a5;"></span><span style="background: #8b6f6f;"></span><span style="background: #4a4a4a;"></span><span style="background: #f5f5f0;"></span></div>
+                        <div class="palette-info"><div class="palette-name">Dusty Rose & Taupe</div><div class="palette-mood">Sophisticated, muted, modern. Earthy undertones make pink feel grounded and mature.</div></div>
+                    </div>
+                    <div class="palette-card">
+                        <div class="palette-swatches"><span style="background: #fff5f5;"></span><span style="background: #ffb5b5;"></span><span style="background: #2d3436;"></span><span style="background: #636e72;"></span><span style="background: #ffffff;"></span></div>
+                        <div class="palette-info"><div class="palette-name">Coral & Charcoal</div><div class="palette-mood">Fresh, contemporary, bold. Warmer pink with strong contrast for a more energetic feel.</div></div>
+                    </div>
+                </div>
+                <div class="palette-examples">
+                    <div class="palette-card">
+                        <div class="palette-swatches"><span style="background: #fce4ec;"></span><span style="background: #e0218a;"></span><span style="background: #880e4f;"></span><span style="background: #ffffff;"></span><span style="background: #212121;"></span></div>
+                        <div class="palette-info"><div class="palette-name">Barbie Pink Pop</div><div class="palette-mood">Vibrant, confident, modern. Bold hot pink (#E0218A) makes a statement with clean black and white.</div></div>
+                    </div>
+                    <div class="palette-card">
+                        <div class="palette-swatches"><span style="background: #fef6f6;"></span><span style="background: #f4c2c2;"></span><span style="background: #e6b8a2;"></span><span style="background: #d4a574;"></span><span style="background: #3d3d3d;"></span></div>
+                        <div class="palette-info"><div class="palette-name">Rose & Caramel</div><div class="palette-mood">Warm, inviting, approachable. Soft pink blends into warm neutrals for a cozy, welcoming vibe.</div></div>
+                    </div>
+                    <div class="palette-card">
+                        <div class="palette-swatches"><span style="background: #f9f1f0;"></span><span style="background: #ddbea9;"></span><span style="background: #cb997e;"></span><span style="background: #b98b73;"></span><span style="background: #87675a;"></span></div>
+                        <div class="palette-info"><div class="palette-name">Blush & Terracotta</div><div class="palette-mood">Earthy, organic, artisanal. Pink undertones with warm terracotta for a natural, handcrafted feel.</div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="field-group">
+            <label class="field-label"><span class="required">◆</span> Typography Preferences</label>
+            <p class="field-hint">Typography is the style of lettering used in your brand. Here are the main categories:</p>
+            <div class="typography-examples">
+                <div class="type-card"><div class="type-sample serif">Elegant Boutique</div><div class="type-name">Serif</div><div class="type-desc">Letters have small decorative lines (serifs) at the ends. Traditional, elegant, trustworthy. Think: Times New Roman, but more refined.</div></div>
+                <div class="type-card"><div class="type-sample sans-serif">Modern Style</div><div class="type-name">Sans-Serif</div><div class="type-desc">Clean letters without decorative lines. Modern, minimal, approachable. Think: The text you are reading right now.</div></div>
+                <div class="type-card"><div class="type-sample script">Graceful Touch</div><div class="type-name">Script / Decorative</div><div class="type-desc">Flowing, handwritten feel. Personal, artistic, feminine. Best used sparingly for accents.</div></div>
+                <div class="type-card"><div class="type-sample mixed-headline">Quality Finds</div><div class="type-sample mixed-body">Curated with care</div><div class="type-name">Mixed Pairing</div><div class="type-desc">Different fonts for headlines and body text. Creates visual hierarchy and interest.</div></div>
+            </div>
+            <p class="field-hint" style="margin-top: 1rem;">Which style(s) appeal to you?</p>
+            <div class="checkbox-group">
+                <label class="checkbox-item"><input type="checkbox" name="typography[]" value="serif"> Serif (traditional, elegant)</label>
+                <label class="checkbox-item"><input type="checkbox" name="typography[]" value="sans-serif"> Sans-serif (modern, clean)</label>
+                <label class="checkbox-item"><input type="checkbox" name="typography[]" value="script"> Script (decorative, personal)</label>
+                <label class="checkbox-item"><input type="checkbox" name="typography[]" value="mixed"> Mixed pairing</label>
+            </div>
+            <p class="field-hint" style="margin-top: 0.75rem;">Weight preference</p>
+            <div class="checkbox-group">
+                <label class="checkbox-item"><input type="checkbox" name="type_weight[]" value="bold"> Bold / Heavy</label>
+                <label class="checkbox-item"><input type="checkbox" name="type_weight[]" value="light"> Light / Delicate</label>
+                <label class="checkbox-item"><input type="checkbox" name="type_weight[]" value="medium"> Medium / Balanced</label>
+            </div>
+        </div>
+        <div class="field-group">
+            <label class="field-label"><span class="required">◆</span> Overall Aesthetic</label>
+            <p class="field-hint">Select the styles that resonate with your vision (choose 1-3). Conflicting styles will dim as you select.</p>
+            <div class="aesthetic-grid" id="aesthetic-grid">
+                <label class="aesthetic-card" data-aesthetic="minimalist" data-conflicts="maximalist,ornate,whimsical"><input type="checkbox" name="aesthetic[]" value="minimalist"><div class="aesthetic-content"><div class="aesthetic-icon">◯</div><div class="aesthetic-name">Minimalist</div><div class="aesthetic-desc">Clean, simple, lots of white space. Less is more.</div></div></label>
+                <label class="aesthetic-card" data-aesthetic="luxurious" data-conflicts="casual,budget,rustic"><input type="checkbox" name="aesthetic[]" value="luxurious"><div class="aesthetic-content"><div class="aesthetic-icon">✧</div><div class="aesthetic-name">Luxurious</div><div class="aesthetic-desc">Rich textures, gold accents, refined details.</div></div></label>
+                <label class="aesthetic-card" data-aesthetic="modern" data-conflicts="vintage,rustic,traditional"><input type="checkbox" name="aesthetic[]" value="modern"><div class="aesthetic-content"><div class="aesthetic-icon">◈</div><div class="aesthetic-name">Modern</div><div class="aesthetic-desc">Contemporary, trendy, fresh and current.</div></div></label>
+                <label class="aesthetic-card" data-aesthetic="organic" data-conflicts="industrial,high-tech,geometric"><input type="checkbox" name="aesthetic[]" value="organic"><div class="aesthetic-content"><div class="aesthetic-icon">❦</div><div class="aesthetic-name">Organic</div><div class="aesthetic-desc">Natural, soft, earthy tones and textures.</div></div></label>
+                <label class="aesthetic-card" data-aesthetic="vintage" data-conflicts="modern,high-tech,minimalist"><input type="checkbox" name="aesthetic[]" value="vintage"><div class="aesthetic-content"><div class="aesthetic-icon">✿</div><div class="aesthetic-name">Vintage</div><div class="aesthetic-desc">Nostalgic, retro-inspired, classic charm.</div></div></label>
+                <label class="aesthetic-card" data-aesthetic="artisanal" data-conflicts="corporate,industrial"><input type="checkbox" name="aesthetic[]" value="artisanal"><div class="aesthetic-content"><div class="aesthetic-icon">✎</div><div class="aesthetic-name">Artisanal</div><div class="aesthetic-desc">Handcrafted feel, personal, unique character.</div></div></label>
+                <label class="aesthetic-card" data-aesthetic="bold" data-conflicts="subtle,minimalist,understated"><input type="checkbox" name="aesthetic[]" value="bold"><div class="aesthetic-content"><div class="aesthetic-icon">◆</div><div class="aesthetic-name">Bold</div><div class="aesthetic-desc">Strong colors, confident, makes a statement.</div></div></label>
+                <label class="aesthetic-card" data-aesthetic="whimsical" data-conflicts="corporate,minimalist,professional"><input type="checkbox" name="aesthetic[]" value="whimsical"><div class="aesthetic-content"><div class="aesthetic-icon">✺</div><div class="aesthetic-name">Whimsical</div><div class="aesthetic-desc">Playful, fun, unexpected delightful touches.</div></div></label>
+                <label class="aesthetic-card" data-aesthetic="editorial" data-conflicts="casual,rustic"><input type="checkbox" name="aesthetic[]" value="editorial"><div class="aesthetic-content"><div class="aesthetic-icon">▯</div><div class="aesthetic-name">Editorial</div><div class="aesthetic-desc">Magazine-quality, curated, high-fashion feel.</div></div></label>
+            </div>
+        </div>
+        <div class="field-group">
+            <label class="field-label">Imagery Style</label>
+            <p class="field-hint">What type of photography or imagery represents your brand?</p>
+            <div class="checkbox-group">
+                <label class="checkbox-item"><input type="checkbox" name="imagery[]" value="lifestyle"> Lifestyle</label>
+                <label class="checkbox-item"><input type="checkbox" name="imagery[]" value="product"> Product-focused</label>
+                <label class="checkbox-item"><input type="checkbox" name="imagery[]" value="people"> People-centric</label>
+                <label class="checkbox-item"><input type="checkbox" name="imagery[]" value="flat_lay"> Flat-lay styling</label>
+                <label class="checkbox-item"><input type="checkbox" name="imagery[]" value="artistic"> Artistic / Abstract</label>
+                <label class="checkbox-item"><input type="checkbox" name="imagery[]" value="natural"> Natural lighting</label>
+            </div>
+        </div>
+        <div class="field-group">
+            <label class="field-label">Visual Inspiration</label>
+            <p class="field-hint">List brands, websites, Instagram accounts, or images that inspire the look you want</p>
+            <textarea name="visual_inspiration" placeholder="e.g., Anthropologie's website, @shopclarev on Instagram, the aesthetics of a Parisian boutique"></textarea>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="section-header"><h2>6. Existing Brand Assets</h2></div>
+    <div class="section-content">
+        <div class="field-group">
+            <label class="field-label">Current Logo</label>
+            <div class="checkbox-group">
+                <label class="checkbox-item"><input type="radio" name="logo_status" value="none"> No existing logo</label>
+                <label class="checkbox-item"><input type="radio" name="logo_status" value="exists"> Logo exists (will attach)</label>
+                <label class="checkbox-item"><input type="radio" name="logo_status" value="refresh"> Logo could use a refresh</label>
+            </div>
+            <p class="field-hint" style="margin-top: 0.75rem;">If refreshing: What do you want to keep? What could change?</p>
+            <textarea name="logo_notes"></textarea>
+        </div>
+        <div class="field-group">
+            <label class="field-label">Existing Brand Colors</label>
+            <p class="field-hint">List any established colors with hex codes if known</p>
+            <input type="text" name="existing_colors" placeholder="e.g., Pink #E8A4B8, Gold #C9A855">
+        </div>
+        <div class="field-group">
+            <label class="field-label">Existing Fonts</label>
+            <p class="field-hint">List any established fonts currently in use</p>
+            <input type="text" name="existing_fonts" placeholder="e.g., Cormorant Garamond for headlines, Montserrat for body">
+        </div>
+        <div class="field-group">
+            <label class="field-label">Other Brand Materials</label>
+            <p class="field-hint">Check all that currently exist</p>
+            <div class="checkbox-group">
+                <label class="checkbox-item"><input type="checkbox" name="materials[]" value="cards"> Business cards</label>
+                <label class="checkbox-item"><input type="checkbox" name="materials[]" value="letterhead"> Letterhead</label>
+                <label class="checkbox-item"><input type="checkbox" name="materials[]" value="signage"> Signage</label>
+                <label class="checkbox-item"><input type="checkbox" name="materials[]" value="packaging"> Packaging</label>
+                <label class="checkbox-item"><input type="checkbox" name="materials[]" value="website"> Website</label>
+                <label class="checkbox-item"><input type="checkbox" name="materials[]" value="social"> Social media profiles</label>
+                <label class="checkbox-item"><input type="checkbox" name="materials[]" value="marketing"> Marketing materials</label>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="section-header"><h2>7. Applications & Deliverables</h2></div>
+    <div class="section-content">
+        <div class="field-group">
+            <label class="field-label"><span class="required">◆</span> Where will the brand be used?</label>
+            <p class="field-hint">Check all that apply</p>
+            <div class="checkbox-group">
+                <label class="checkbox-item"><input type="checkbox" name="applications[]" value="website"> Website</label>
+                <label class="checkbox-item"><input type="checkbox" name="applications[]" value="social"> Social media</label>
+                <label class="checkbox-item"><input type="checkbox" name="applications[]" value="print"> Print materials</label>
+                <label class="checkbox-item"><input type="checkbox" name="applications[]" value="packaging"> Packaging / Tags</label>
+                <label class="checkbox-item"><input type="checkbox" name="applications[]" value="signage"> Storefront / Signage</label>
+                <label class="checkbox-item"><input type="checkbox" name="applications[]" value="apparel"> Apparel / Merchandise</label>
+                <label class="checkbox-item"><input type="checkbox" name="applications[]" value="email"> Email marketing</label>
+                <label class="checkbox-item"><input type="checkbox" name="applications[]" value="advertising"> Advertising</label>
+            </div>
+            <input type="text" name="applications_other" placeholder="Other..." style="margin-top: 0.5rem;">
+        </div>
+        <div class="field-group">
+            <label class="field-label"><span class="required">◆</span> Deliverables You Would Find Helpful</label>
+            <p class="field-hint">Check all that interest you</p>
+            <div class="deliverable-grid">
+                <label class="checkbox-item"><input type="checkbox" name="deliverables[]" value="logo"> Logo (primary + variations)</label>
+                <label class="checkbox-item"><input type="checkbox" name="deliverables[]" value="colors"> Color palette</label>
+                <label class="checkbox-item"><input type="checkbox" name="deliverables[]" value="typography"> Typography system</label>
+                <label class="checkbox-item"><input type="checkbox" name="deliverables[]" value="style_guide"> Brand style guide</label>
+                <label class="checkbox-item"><input type="checkbox" name="deliverables[]" value="business_cards"> Business card design</label>
+                <label class="checkbox-item"><input type="checkbox" name="deliverables[]" value="letterhead"> Letterhead</label>
+                <label class="checkbox-item"><input type="checkbox" name="deliverables[]" value="social_templates"> Social media templates</label>
+                <label class="checkbox-item"><input type="checkbox" name="deliverables[]" value="email_sig"> Email signature</label>
+                <label class="checkbox-item"><input type="checkbox" name="deliverables[]" value="signage"> Signage design</label>
+                <label class="checkbox-item"><input type="checkbox" name="deliverables[]" value="website"> Website design</label>
+            </div>
+            <input type="text" name="deliverables_other" placeholder="Other..." style="margin-top: 0.5rem;">
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="section-header"><h2>8. Timeline & Budget</h2></div>
+    <div class="section-content">
+        <div class="field-group">
+            <label class="field-label">Project Timeline</label>
+            <div class="demo-grid" style="margin-top: 0.5rem;">
+                <div class="demo-field"><label>Ideal completion date</label><input type="text" name="timeline_ideal" placeholder="e.g., End of the Quarter"></div>
+                <div class="demo-field"><label>Hard deadline (if any)</label><input type="text" name="timeline_hard" placeholder="e.g., Store opening April 1"></div>
+            </div>
+            <p class="field-hint" style="margin-top: 0.75rem;">Key dates or events driving timeline</p>
+            <input type="text" name="timeline_events" placeholder="e.g., Grand opening, seasonal launch, marketing campaign">
+        </div>
+        <div class="field-group">
+            <label class="field-label">Budget Range</label>
+            <p class="field-hint">Select the range that fits your investment plans</p>
+            <div class="budget-grid">
+                <label class="budget-option"><input type="radio" name="budget" value="500_1k"> $500 - $1,000</label>
+                <label class="budget-option"><input type="radio" name="budget" value="1k_2.5k"> $1,000 - $2,500</label>
+                <label class="budget-option"><input type="radio" name="budget" value="2.5k_5k"> $2,500 - $5,000</label>
+                <label class="budget-option"><input type="radio" name="budget" value="5k_7.5k"> $5,000 - $7,500</label>
+                <label class="budget-option"><input type="radio" name="budget" value="7.5k_10k"> $7,500 - $10,000</label>
+                <label class="budget-option"><input type="radio" name="budget" value="10k_plus"> $10,000+</label>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="section-header"><h2>9. Additional Information</h2></div>
+    <div class="section-content">
+        <div class="field-group">
+            <label class="field-label">Anything else we should know?</label>
+            <p class="field-hint">Include any additional context, concerns, ideas, or inspiration not covered above</p>
+            <textarea name="additional_notes" style="min-height: 120px;"></textarea>
+        </div>
+        <div class="field-group">
+            <label class="field-label">Attachments Checklist</label>
+            <p class="field-hint">Please include with this questionnaire (if available)</p>
+            <div class="checkbox-group" style="flex-direction: column; gap: 0.4rem;">
+                <label class="checkbox-item"><input type="checkbox" name="attachments[]" value="logo"> Existing logo files</label>
+                <label class="checkbox-item"><input type="checkbox" name="attachments[]" value="mood_board"> Mood board or visual inspiration images</label>
+                <label class="checkbox-item"><input type="checkbox" name="attachments[]" value="competitors"> Competitor examples</label>
+                <label class="checkbox-item"><input type="checkbox" name="attachments[]" value="photography"> Photography or imagery to be used</label>
+                <label class="checkbox-item"><input type="checkbox" name="attachments[]" value="guidelines"> Any existing brand guidelines</label>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="pdf-button-container">
+    <button class="pdf-button" onclick="generatePDF()">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+        Generate PDF to Email
+    </button>
+    <p class="pdf-note">Creates a PDF of your completed questionnaire to save or email</p>
+</div>
+
+<footer class="footer"><hr><p>Brand Development Intake Questionnaire</p></footer>
+</div>
+
+<script>
+const traitGrid = document.getElementById('trait-grid');
+const traitItems = traitGrid.querySelectorAll('.trait-item');
+traitItems.forEach(item => { item.querySelector('input[type="checkbox"]').addEventListener('change', updateTraitStates); });
+
+function updateTraitStates() {
+    const allConflicts = new Set();
+    traitItems.forEach(item => {
+        const cb = item.querySelector('input[type="checkbox"]');
+        if (cb.checked) { item.dataset.conflicts.split(',').filter(c => c).forEach(c => allConflicts.add(c)); }
+    });
+    traitItems.forEach(item => {
+        const cb = item.querySelector('input[type="checkbox"]');
+        if (cb.checked) { item.classList.add('selected'); item.classList.remove('disabled'); }
+        else if (allConflicts.has(item.dataset.trait)) { item.classList.add('disabled'); item.classList.remove('selected'); cb.checked = false; }
+        else { item.classList.remove('disabled', 'selected'); }
+    });
+}
+
+const aestheticGrid = document.getElementById('aesthetic-grid');
+const aestheticCards = aestheticGrid.querySelectorAll('.aesthetic-card');
+aestheticCards.forEach(card => {
+    const cb = card.querySelector('input[type="checkbox"]');
+    cb.addEventListener('change', updateAestheticStates);
+    card.addEventListener('click', (e) => { if (!card.classList.contains('disabled') && e.target.type !== 'checkbox') { cb.checked = !cb.checked; updateAestheticStates(); } });
+});
+
+function updateAestheticStates() {
+    const allConflicts = new Set();
+    aestheticCards.forEach(card => {
+        const cb = card.querySelector('input[type="checkbox"]');
+        if (cb.checked) { card.dataset.conflicts.split(',').filter(c => c).forEach(c => allConflicts.add(c)); }
+    });
+    aestheticCards.forEach(card => {
+        const cb = card.querySelector('input[type="checkbox"]');
+        if (cb.checked) { card.classList.add('selected'); card.classList.remove('disabled'); }
+        else if (allConflicts.has(card.dataset.aesthetic)) { card.classList.add('disabled'); card.classList.remove('selected'); cb.checked = false; }
+        else { card.classList.remove('disabled', 'selected'); }
+    });
+}
+
+function generatePDF() {
+    const element = document.getElementById('intake-form');
+    const button = document.querySelector('.pdf-button-container');
+    button.style.display = 'none';
+    const opt = { margin: [0.5, 0.5, 0.5, 0.5], filename: 'brand-intake-questionnaire.pdf', image: { type: 'jpeg', quality: 0.98 }, html2canvas: { scale: 2, useCORS: true }, jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' } };
+    html2pdf().set(opt).from(element).save().then(() => { button.style.display = 'block'; });
+}
+</script>
+</body>
+</html>
